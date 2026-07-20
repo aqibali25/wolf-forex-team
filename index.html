@@ -240,28 +240,40 @@
     </a>
   </main>
 
-  <!-- Meta Subscribe Event -->
-  <script>
-    document.addEventListener("DOMContentLoaded", function() {
-      const subscribeButton = document.getElementById(
-        "telegram-subscribe-button"
-      );
+<!-- Meta Subscribe Event -->
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const subscribeButton = document.getElementById(
+      "telegram-subscribe-button"
+    );
 
-      if (!subscribeButton) {
+    let subscribeEventSent = false;
+
+    if (!subscribeButton) {
+      return;
+    }
+
+    subscribeButton.addEventListener("click", function () {
+      /*
+       * Prevent repeated manual Subscribe events
+       * during the same page visit.
+       */
+      if (subscribeEventSent) {
         return;
       }
 
-      subscribeButton.addEventListener("click", function() {
-        if (typeof fbq === "function") {
-          fbq("track", "Subscribe", {
-            content_name: "Wolf Forex Team Telegram",
-            content_category: "Telegram Channel",
-            destination: "Telegram",
-            button_text: "Join Wolf Forex Team — Free"
-          });
-        }
-      });
+      subscribeEventSent = true;
+
+      if (typeof fbq === "function") {
+        fbq("track", "Subscribe", {
+          content_name: "Wolf Forex Team Telegram",
+          content_category: "Telegram Channel",
+          destination: "Telegram",
+          button_text: "Join Wolf Forex Team — Free"
+        });
+      }
     });
-  </script>
+  });
+</script>
 </body>
 </html>
